@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import lv.venta.model.Product;
+
 @Controller
 
 
@@ -24,6 +26,15 @@ public class MyFirstController {
 		String data = "Linda ->" + rand.nextInt(0, 101);
 		model.addAttribute("package", data);
 		return "show-data-page";
+	}
+	
+	@GetMapping("/getproduct")
+	public String getControllerSendProduct(Model model) {
+		Product newProduct = new Product("Abols", "Garsigs", 0.99f, 4);
+		model.addAttribute("package", newProduct);
+		return "show-one-product";
+	
+	
 	}
 }
 
