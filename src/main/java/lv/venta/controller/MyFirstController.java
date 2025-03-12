@@ -1,5 +1,7 @@
 package lv.venta.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 import org.springframework.stereotype.Controller;
@@ -34,7 +36,17 @@ public class MyFirstController {
 		model.addAttribute("package", newProduct);
 		return "show-one-product";
 	
+	}
+	@GetMapping("/getproducts")
+	public String getControllerSendProducts(Model model) {
+		ArrayList<Product> products = new ArrayList<>();
+		Product newProduct1 = new Product("Abols", "Garsigs", 0.99f, 4);
+		Product newProduct2 = new Product("Bumbieris", "Zals", 0.99f, 4);
+		products.addAll(Arrays.asList(newProduct1, newProduct2));
+		model.addAttribute("package", products);
+		return "show-two-products";
 	
 	}
+	
 }
 
