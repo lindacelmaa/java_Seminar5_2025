@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lv.venta.model.Product;
 import lv.venta.service.IproductCRUDService;
@@ -18,7 +19,7 @@ public class ProductCRUDController {
 	@Autowired
 	private IproductCRUDService prodService;
 	
-	@GetMapping("/all") //localhost:8080/product/crud
+	@GetMapping("/all") //localhost:8080/product/crud/all
 	public String getControllerGetAllProducts(Model model) {
 		try {
 			ArrayList<Product> allProducts = prodService.retrieveAll();
@@ -30,4 +31,25 @@ public class ProductCRUDController {
 		}
 		
 	}
+	
+	//localhost:8080/product/crud/one?id=1
+	@GetMapping("/one")
+	public String getControllerGetOneProduct(@RequestParam(name = "id")long id, Model model) {
+		try {
+			Product productFound = prodService.retrieveById(id);
+			model.addAttribute("package", productFound);
+			return "show-one-product";
+		}catch(Exception e) {
+			e.printStackTrace();
+			model.addAttribute("package", e.getMessage());
+			return "show-error";
+		}
+		
+		
+		
+	}
+	
+	////localhost:8080/product/crud/all/1
+	
+	
 }
