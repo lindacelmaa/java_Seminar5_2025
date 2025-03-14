@@ -17,7 +17,21 @@ public class ProductCRUDServiceImpl implements IproductCRUDService{
 	private IProductRepo prodRepo;
 	@Override
 	public void createProduct(String title, String description, float price, int quantity) throws Exception {
-		// TODO Auto-generated method stub
+		if(title == null || !title.matches("[A-Z]{1}[a-z ]{2,15}") ||  description == null || !description.matches("[A-Za-z :;]{3,30}") || price < 0 || quantity < 0) {
+			throw new Exception("Description, price and quantity must be filled or bigger than 0");
+		}
+		
+		if(prodRepo.existsByTitleAndDescriptionAndPrice(title, description, price)) {
+		
+			Product productExists = prodRepo.findByTitleAndDescriptionAndPrice(title, description, price);
+			
+			int newQuantity = productExists.getQuantity() + quantity;
+			productExists.setQuantity(newQuantity);
+			prodRepo.save(productExists);
+		
+		}
+		Product newProduct = new Product(title, description, price, quantity);
+		prodRepo.save(newProduct);
 		
 	}
 
@@ -68,7 +82,9 @@ public class ProductCRUDServiceImpl implements IproductCRUDService{
 
 	@Override
 	public void deleteProduct(long id) throws Exception {
-		// TODO Auto-generated method stub
+		Product productForDeleting = retrieveById(id);
+		prodRepo.delete(productForDeleting);
+		
 		
 	}
 	
