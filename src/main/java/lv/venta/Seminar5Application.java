@@ -24,9 +24,9 @@ public class Seminar5Application {
 			@Override
 			public void run(String... args) throws Exception {
 				
-			Product p1 = new Product("Ābols", "Garšīgs", 0.99f, 4);
-			Product p2 = new Product("Gurķis", "Zaļš", 1.99f, 10);
-			Product p3 = new Product("Tomāts", "Sarkans", 3.49f, 100);
+			Product p1 = new Product("Abols", "Garsigs", 0.99f, 4);
+			Product p2 = new Product("Gurkis", "Zals", 1.99f, 10);
+			Product p3 = new Product("Tomats", "Sarkans", 3.49f, 100);
 			//saglabajam prduktus arī DB
 			prodRepo.save(p1);
 			prodRepo.save(p2);
