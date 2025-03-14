@@ -48,7 +48,7 @@ public class ProductCRUDController {
 		
 	}
 	
-	////localhost:8080/product/crud/all/1
+	////localhost:8080/product/crud/one/1
 	@GetMapping("/one/{id}")
 	public String getControllerOneProduct(@PathVariable("id") long id, Model model) {
 		try {
@@ -62,5 +62,26 @@ public class ProductCRUDController {
 			return "show-error";
 		}
 	}
+	
+	@GetMapping("/create")//localhost:8080/product/crud/create
+	public String getControllerCreateNewProduct(Model model) {
+		model.addAttribute("product", new Product());
+		return "create-product"; 
+		
+	}
+	
+	public String postControllerCreateNewProduct(Product product, Model model) {
+		try {
+			System.out.println(product);
+			prodService.createProduct(product.getTitle(), product.getDescription(), product.getPrice(), product.getQuantity());
+			return "redirect:/product/crud/all";
+		}catch(Exception e) {
+			
+			model.addAttribute("package", e.getMessage());
+			return "show-error";
+		}
+	}
+	
+	
 	
 }

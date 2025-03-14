@@ -1,0 +1,32 @@
+<html xmlns:th="https://www.tymeleaf.org">
+	
+	<body>
+		<p>Ludzu ievadiet jaunu produktu:</p>
+		<form action="#" th:action="@{/product/crud/create}" th:object="${product}" method="post">
+			<table>
+				<tr>
+					<td>Nosaukums</td>
+					<td><input type="text" th:field="*{title}"></td>
+				</tr>
+				<tr>
+					<td>Apraksts</td>
+					<td><input type="text" th:field="*{description}"></td>
+				</tr>
+				<tr>
+					<td>Cena</td>
+					<td><input type="text" th:field="*{price}"></td>
+				</tr>
+				<tr>
+					<td>Daudzums</td>
+					<td><input type="text" th:field="*{quantity}"></td>
+				</tr>
+				<tr>
+					<td><input type="submit" name="Saglabat"></td>
+				</tr>
+			</table>
+		</form>
+		
+	
+	</body>
+
+</html
