@@ -1,13 +1,12 @@
 <html xmlns:th="https://www.tymeleaf.org">
 	
 	<body>
-		<p>Ludzu ievadiet jaunu produktu:</p>
-		<form action="#" th:action="@{/product/crud/create}" th:object="${product}" method="post">
+		<p>Ludzu redigejiet produktu:</p>
+		<form action="#" th:action="@{/product/crud/update/__${id}__}" th:object="${product}" method="post">
 			<table>
 				<tr>
 					<td>Nosaukums</td>
-					<td><input type="text" th:field="*{title}"></td>
-					<td th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></td>
+					<td><p th:text="*{title}"></p></td>
 				</tr>
 				<tr>
 					<td>Apraksts</td>
@@ -25,7 +24,7 @@
 					<td th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></td>
 				</tr>
 				<tr>
-					<td><input type="submit" value="Saglabat"></td>
+					<td><input type="submit" value="Rediget"></td>
 				</tr>
 			</table>
 		</form>

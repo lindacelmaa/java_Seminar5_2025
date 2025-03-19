@@ -33,7 +33,7 @@ public class Product {
 	
 	@Column(name = "title")
 	@NotNull
-	@Pattern(regexp = "[A-Z]{1}[a-z ]{2,15}")
+	@Pattern(regexp = "[A-Z]{1}[a-z ]{2,15}", message = "The first letter should be in capital.")
 	//@Size(min=3, max = 16)
 	private String title;
 	

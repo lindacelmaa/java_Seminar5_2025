@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.validation.Valid;
 import lv.venta.model.Product;
 import lv.venta.service.IproductCRUDService;
 
@@ -71,7 +73,11 @@ public class ProductCRUDController {
 		
 	}
 	@PostMapping("/create")
-	public String postControllerCreateNewProduct(Product product, Model model) {
+	public String postControllerCreateNewProduct(@Valid Product product, BindingResult result, Model model) {
+		if(result.hasErrors()) {
+			return "create-product";
+		}
+		
 		try {
 			System.out.println(product);
 			prodService.createProduct(product.getTitle(), product.getDescription(), product.getPrice(), product.getQuantity());
@@ -82,7 +88,27 @@ public class ProductCRUDController {
 			return "show-error";
 		}
 	}
-	
-	
+	@GetMapping("/update/{id}")//localhost:8080/product/crud/update{0}
+	public String getControllerUpdateProduct(@PathVariable(name = "id") long id, Model model) {
+		try {
+			Product productFound = prodService.retrieveById(id);
+			model.addAttribute("product", productFound);
+			return "update-product";
+		} catch(Exception e) {
+			e.printStackTrace();
+			model.addAttribute("package", e.getMessage());
+			return "show-error";
+		}
+	}
+	@PostMapping("/update/{id}")
+	public String postControllerUpdateProduct(@PathVariable(name = "id") long id, @Valid Product product, BindingResult result, Model model) {
+		try {
+			prodService.updateProduct(id, product.getDescription(), product.getPrice(), product.getQuantity());
+			return "redirect:/product/crud/all";
+		}catch(Exception e) {
+			model.addAttribute("package", e.getMessage());
+			return "show-error";
+		}
+	}
 	
 }
