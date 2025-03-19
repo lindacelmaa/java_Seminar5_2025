@@ -110,5 +110,16 @@ public class ProductCRUDController {
 			return "show-error";
 		}
 	}
-	
+	@GetMapping("delete/{id}")////localhost:8080/product/crud/delete/5
+	public String getControllerDeleteProduct(@PathVariable(name = "id") long id, Model model) {
+		try {
+			prodService.deleteProduct(id);
+			model.addAttribute("product", prodService.retrieveAll());
+			return "show-two-products";
+		} catch(Exception e) {
+			e.printStackTrace();
+			model.addAttribute("package", e.getMessage());
+			return "show-error";
+		}
+	}
 }
