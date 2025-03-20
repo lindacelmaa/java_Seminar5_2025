@@ -1,0 +1,20 @@
+<html xmlns:th="https://www.tymeleaf.org">
+	
+	<body>
+		<p>Produkts/i</p>
+		<table border="1px">
+			<tr th:each="tempP : ${package}">
+				
+				<td th:text = "${tempP.getId()}"></td>
+				<td th:text = "${tempP.getDescription()}"></td>
+				<td th:text = "${tempP.getPrice()}"></td>
+				<td th:text = "${tempP.getTitle()}"></td>
+				<td th:text = "${tempP.getQuantity()}"></td>
+			
+			</tr>
+		</table>
+		
+	
+	</body>
+
+</html>
