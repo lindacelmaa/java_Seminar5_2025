@@ -45,9 +45,9 @@ public class SecurityConfig {
 		return imUserDetailsMan;
 	
 	}
-	
+	@Bean
 	public SecurityFilterChain createConfigForEndpoints(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests()
+		http.authorizeHttpRequests( auth -> auth
 			.requestMatchers("/simple").permitAll()
 			.requestMatchers("/getdata").hasAuthority("ADMIN")
 			.requestMatchers("/getproduct").hasAuthority("ADMIN")
@@ -61,9 +61,12 @@ public class SecurityConfig {
 			.requestMatchers("/product/process/price**").hasAuthority("ADMIN")
 			.requestMatchers("/product/process/quantity**").hasAuthority("ADMIN")
 			.requestMatchers("/product/process/search**").hasAuthority("ADMIN")
-			.requestMatchers("/product/process/income").hasAnyAuthority("ADMIN", "USER");
+			.requestMatchers("/product/process/income").hasAnyAuthority("ADMIN", "USER")
+			);
 		
-		http.formLogin().permitAll();
+		http.formLogin(auth -> auth
+				.permitAll()
+		);
 		
 		return http.build();
 		
